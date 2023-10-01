@@ -32,15 +32,15 @@ public class NoteController {
     public String editNote(@PathVariable Long id, Model model) {
         Note note = noteService.getById(id);
         model.addAttribute("note", note);
-        model.addAttribute("noteId", id);
         return "edit";
     }
 
-    @PostMapping("/save")
-    public String saveNote(@ModelAttribute("note") Note note) {
+    @PostMapping("/edit")
+    public String editNotePost(@ModelAttribute("note") Note note) {
         noteService.update(note);
         return "redirect:/note/list";
     }
+    
 
     @GetMapping("/create")
     public String createNoteForm(Model model) {
@@ -55,9 +55,10 @@ public class NoteController {
         return "redirect:/note/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteNote(@PathVariable Long id) {
+    @PostMapping ("/delete")
+    public String deleteNote(@RequestParam  Long id) {
         noteService.deleteById(id);
         return "redirect:/note/list";
     }
 }
+
